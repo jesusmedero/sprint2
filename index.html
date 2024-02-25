@@ -6,27 +6,111 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+      if (profile.active) {
+       if (reason === undefined) {
+       return "confirm status manually";
+       } else {
+       return { active: false, reason: reason };
+       }
+      } else {
+         return { active: true };
+        }
     }
+    
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
+      }
+      
+      const squareValue = grid[y - 1][x - 1];
 
+      if (squareValue === "🟥") {
+        return "🟥 💀";
+      } else if (squareValue === "🟦") {
+        return "🟦 🥳";
+      }
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      for (let key in obj) {
+    
+     if (key.length > 9) {
+      return "shorten all prop names to 9 chars or less";
+     }
 
+    
+     if (obj[key] === 0) {
+      obj[key] = false;
+     }
+
+    
+     if (obj[key] === 1) {
+      obj[key] = true;
+     }
+
+    
+     if (obj[key] === null) {
+      delete obj[key];
+     }
+     }
+
+     return obj;
+ 
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      if (text === "" || forbidden.length === 0) {
+       return text;
+      }
 
+      let result = ""; 
+
+  
+      let words = text.split(" ");
+
+  
+     for (let i = 0; i < words.length; i++) {
+      let currentWord = words[i];
+      let isForbidden = false;
+
+    
+     for (let j = 0; j < forbidden.length; j++) {
+       if (currentWord === forbidden[j]) {
+        isForbidden = true;
+        break;
+       }
+      }
+
+    
+      if (isForbidden) {
+       let scrubbedWord = "";
+       for (let k = 0; k < currentWord.length; k++) {
+        scrubbedWord += "x";
+       }
+       result += scrubbedWord + " ";
+      } else {
+      result += currentWord + " ";
+      }
+      }
+
+  
+     return result.trim();
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      if (num.length !== 10) {
+        console.error("Error: El número de teléfono debe tener exactamente 10 dígitos.");
+         return null;
+      }
 
+  
+      const formattedNumber = `(${num.substring(0, 3)}) ${num.substring(3, 6)}-${num.substring(6, 10)}`;
+      return formattedNumber;
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
